@@ -1,7 +1,10 @@
 package it.polito.tdp.nyc;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.nyc.model.Arco;
 import it.polito.tdp.nyc.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +44,7 @@ public class FXMLController {
     private TableColumn<?, ?> clV2; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbBorough"
-    private ComboBox<?> cmbBorough; // Value injected by FXMLLoader
+    private ComboBox<String> cmbBorough; // Value injected by FXMLLoader
 
     @FXML // fx:id="tblArchi"
     private TableView<?> tblArchi; // Value injected by FXMLLoader
@@ -57,12 +60,25 @@ public class FXMLController {
 
     @FXML
     void doAnalisiArchi(ActionEvent event) {
+    	List<Arco> archi=model.analisiArchi();
+    	for (Arco a:archi) {
+    		this.txtResult.appendText(a.toString());
+    		
+    	}
+  
     	
 
     }
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	String borough =this.cmbBorough.getValue();
+    	if (borough==null) {
+    		this.txtResult.appendText("selezionare qualcosa");
+    	}else {
+    		model.creagRafo(borough);
+    		this.txtResult.appendText("creato");
+    	}
     	
     }
 
@@ -90,6 +106,7 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	this.cmbBorough.getItems().addAll(this.model.getBoroughs());
     }
 
 }
