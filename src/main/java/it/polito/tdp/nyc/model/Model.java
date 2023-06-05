@@ -66,5 +66,11 @@ public class Model {
 		
 		
 	}
+
+	public void simula(int durata, int prob) {
+	Simulator sim=new Simulator(durata,prob,new ArrayList<>(this.grafo.vertexSet()),this.grafo);
+	sim.initialize();
+		
+	}
 	
 }

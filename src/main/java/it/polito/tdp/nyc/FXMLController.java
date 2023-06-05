@@ -84,6 +84,20 @@ public class FXMLController {
 
     @FXML
     void doSimula(ActionEvent event) {
+    	this.txtResult.clear();
+    	String durata=this.txtDurata.getText();
+    	String prob=this.txtProb.getText();
+    	try {
+    		int durataInt=Integer.parseInt(durata);
+    		int probInt=Integer.parseInt(prob);
+    		this.model.simula(durataInt,probInt);
+
+    		
+    	}catch(NumberFormatException e){
+    		e.printStackTrace();
+    		this.txtResult.setText("inserire un numero intero");
+    		
+    	}
 
     }
 
